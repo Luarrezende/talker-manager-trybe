@@ -17,10 +17,10 @@ const getTalker = () => {
   return talkers;
 };
 
-// const getTalkerId = (id) => {
-//   const talkers = talkerFiles();
-//   const find = talkers.find((talker) => talker.id === Number(id));
-//   return find;
-// };
+const getTalkerId = async (id) => {
+  const talkers = await talkerFiles();
+  const find = talkers.find((talker) => talker.id === Number(id));
+  return find;
+};
 
-module.exports = { getTalker };
+module.exports = { getTalker, getTalkerId };
