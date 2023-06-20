@@ -3,9 +3,9 @@ const { join } = require('path');
 const path = require('path');
 
 const talkerFiles = async () => {
-  const path = '../talker.json';
+  const tPath = '../talker.json';
   try {
-    const conteudo = await fs.readFile(join(__dirname, path), 'utf-8');
+    const conteudo = await fs.readFile(join(__dirname, tPath), 'utf-8');
     return JSON.parse(conteudo);
   } catch (err) {
     console.log(`Erro ao ler o arquivo: ${err.path}`);

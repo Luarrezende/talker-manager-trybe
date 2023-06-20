@@ -6,7 +6,7 @@ const {
   ageV,
   talkV,
   watchedAtV,
-  rateV
+  rateV,
 } = require('../middlewares/talker');
 
 const router = express.Router();
@@ -36,7 +36,23 @@ ageV, talkV, watchedAtV, rateV, async (req, res) => {
   const trueTalker = { id, ...req.body };
   talkers.push(trueTalker);
   await writeFile(JSON.stringify(talkers, null, 2));
-  return res.status(201).json(trueTalker)
+  return res.status(201).json(trueTalker);
+});
+
+router.put('/:id', authorizationV, nameV,
+ageV, talkV, watchedAtV, rateV, async (req, res) => {
+  const { id } = req.params;
+  const talkers = await readFile();
+  const talkerPosition = talkers.findIndex((talker) => talker.id === Number(id));
+  if (talkerPosition === -1) {
+    return res.status(404).json({
+      message: 'Pessoa palestrante não encontrada',
+    });
+  }
+  const changeTalker = { id: Number(id), ...req.body };
+  talkers[talkerPosition] = changeTalker;
+  await writeFile(JSON.stringify(talkers, null, 2));
+  return res.status(200).json(changeTalker);
 });
 
 module.exports = router;

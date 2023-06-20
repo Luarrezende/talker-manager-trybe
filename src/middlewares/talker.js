@@ -29,7 +29,9 @@ const ageV = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "age" é obrigatório' });
   }
   if (age < ageRegex || !Number.isInteger(age)) {
-    return res.status(400).json({ message: 'O campo "age" deve ser um número inteiro igual ou maior que 18' });
+    return res.status(400).json({ 
+      message: 'O campo "age" deve ser um número inteiro igual ou maior que 18',
+    });
   }
   next();
 };
@@ -39,6 +41,9 @@ const talkV = (req, res, next) => {
 
   if (!talk) {
     return res.status(400).json({ message: 'O campo "talk" é obrigatório' });
+  }
+  if (!talk.rate && talk.rate !== 0) {
+    return res.status(400).json({ message: 'O campo "rate" é obrigatório' });
   }
   next();
 };
@@ -51,7 +56,9 @@ const watchedAtV = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "watchedAt" é obrigatório' });
   }
   if (!regex) {
-    return res.status(400).json({ message: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"' });
+    return res.status(400).json({
+      message: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"',
+    });
   }
   next();
 };
@@ -59,14 +66,10 @@ const watchedAtV = (req, res, next) => {
 const rateV = (req, res, next) => {
   const { rate } = req.body.talk;
 
-  if (rate === 0) {
-    return res.status(400).json({ message: 'O campo "rate" deve ser um número inteiro entre 1 e 5' });
-  }
-  if (!rate) {
-    return res.status(400).json({ message: 'O campo "rate" é obrigatório' });
-  }
   if (rate < 1 || rate > 5 || !Number.isInteger(rate)) {
-    return res.status(400).json({ message: 'O campo "rate" deve ser um número inteiro entre 1 e 5' });
+    return res.status(400).json({
+      message: 'O campo "rate" deve ser um número inteiro entre 1 e 5',
+    });
   }
   next();
 };
