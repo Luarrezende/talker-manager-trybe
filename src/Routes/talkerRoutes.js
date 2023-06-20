@@ -55,4 +55,14 @@ ageV, talkV, watchedAtV, rateV, async (req, res) => {
   return res.status(200).json(changeTalker);
 });
 
+router.delete('/:id', authorizationV, async (req, res) => {
+  const { id } = req.params;
+
+  const talkers = await readFile();
+  const talkerPosition = talkers.findIndex((talker) => talker.id === Number(id));
+  talkers.splice(talkerPosition, 1);
+  await writeFile(JSON.stringify(talkers, null, 2));
+  return res.status(204).json();
+})
+
 module.exports = router;
