@@ -63,6 +63,6 @@ router.delete('/:id', authorizationV, async (req, res) => {
   talkers.splice(talkerPosition, 1);
   await writeFile(JSON.stringify(talkers, null, 2));
   return res.status(204).json();
-})
+});
 
 module.exports = router;
